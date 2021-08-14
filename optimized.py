@@ -19,17 +19,16 @@ def get_combinations(data):
 
 def calc_price_combination(combinations):
     result = []
-    for i in combinations:
-        print(i)
-        # result.append(data.get(i).get("price"))
-
-    return sum(result)
+    # for i in combinations:
+    # result.append(data.get(i).get("price"))
+    # return sum(result)
 
 
 def main():
     data = get_json("data.json")
+    print(data[0].get("price"))
     combinations = get_combinations(data)
-    calc_price_combination(combinations)
+    # calc_price_combination(combinations)
 
 
 if __name__ == "__main__":
