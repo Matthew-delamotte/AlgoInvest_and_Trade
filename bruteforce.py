@@ -1,4 +1,5 @@
 import itertools
+import time
 
 action = {
     "1": {"price": 20, "benefit": 5},
@@ -35,7 +36,7 @@ def get_combinations():
 def calc_benefice_combinaison(combinaison):
     result = []
     for i in combinaison:
-        result.append(action.get(i).get("price") * action.get(i).get("benefit"))
+        result.append((action.get(i).get("price") * action.get(i).get("benefit")) / 100)
 
     return sum(result)
 
@@ -66,7 +67,10 @@ def main():
     print(f"Le meilleur investissement est: actions {max_combination}")
     print(f"Avec un benefice de: {max_benefit}€ après 2 ans")
     print(f"Pour un cout d'achat total de: {calc_price_combination(max_combination)}€")
+    # print(len(get_combinations()))
 
 
 if __name__ == "__main__":
+    start_time = time.time()
     main()
+    print("--- %s seconds ---" % (time.time() - start_time))

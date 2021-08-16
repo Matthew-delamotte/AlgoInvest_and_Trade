@@ -1,0 +1,19 @@
+trier le tableau croissant 
+recuperer le tableau trier
+recuperer resultat
+
+
+faire un liste vide
+
+fonction 
+    prendre data
+    parcourir 1 fois, calculer le benefice de l'action
+    
+fonction
+    trier tableau par ordre decroissant du benefice calculer
+
+fonction
+    seuil = 0
+    si le prix d'achat + seuil <= 500
+        garder la donné
+        seuil = prix d'achat
