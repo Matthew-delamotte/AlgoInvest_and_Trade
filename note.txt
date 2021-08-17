@@ -17,3 +17,6 @@ fonction
     si le prix d'achat + seuil <= 500
         garder la donné
         seuil = prix d'achat
+
+
+calcule parallele

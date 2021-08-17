@@ -36,7 +36,9 @@ def get_combinations():
 def calc_benefice_combinaison(combinaison):
     result = []
     for i in combinaison:
-        result.append((action.get(i).get("price") * action.get(i).get("benefit")) / 100)
+        result.append(
+            (action.get(i).get("price") * (1 + action.get(i).get("benefit"))) / 100
+        )
 
     return sum(result)
 
