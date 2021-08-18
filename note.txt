@@ -19,4 +19,5 @@ fonction
         seuil = prix d'achat
 
 
-calcule parallele
+calcul parallele
+Recherche aussi la méthode de résolution du problème du "sac à dos 0-1"
