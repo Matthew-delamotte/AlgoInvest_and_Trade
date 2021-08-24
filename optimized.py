@@ -71,50 +71,19 @@ def get_json(json_file):
 # print(data)
 
 
-def get_combinations(data):
-    combinations_list = []
-    for L in range(0, len(data) + 1):
-        for combination in itertools.combinations(data, L):
-            if calc_price_combination(data, combination) <= 500:
-                combinations_list.append(combination)
-    return combinations_list
-
-
-def calc_price_combination(data, combinaison):
-    result = []
-    for i in combinaison:
-        result.append(data.get(i).get("price"))
-
-    return sum(result)
-
-
-def calc_benefice_combinaison(data, combination):
-    result = []
-    for i in combination:
-        result.append(
-            (data.get(i).get("price") * (1 + data.get(i).get("benefit"))) / 100
-        )
-
-    return sum(result)
-
-
-def get_best_result(data):
-    max_benefit = 0
-    max_combination = 0
-    for combination in get_combinations(data):
-        if calc_benefice_combinaison(data, combination) > max_benefit:
-            max_benefit = calc_benefice_combinaison(data, combination)
-            max_combination = combination
-    return max_benefit, max_combination
-
-
 def main():
-    data = get_json("data.json")
-    result = get_best_result(data)
-    print(result)
+    pass
 
 
 if __name__ == "__main__":
     start_time = time.time()
     main()
     print("--- %s seconds ---" % (time.time() - start_time))
+
+
+def get_combinations():
+    combinations_list = []
+    for L in range(10, len(action) + 1 - 5):
+        for combination in itertools.combinations(action, L):
+            combinations_list.append(combination)
+    return combinations_list
