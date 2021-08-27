@@ -42,7 +42,8 @@ def make_instance(data):
 def main():
     data = get_csv()
     action_instance = make_instance(data)
-    print(len(action_instance))
+    for i in action_instance:
+        print(i.name)
 
     # th1 = Myprocess()
     # th2 = Myprocess()
