@@ -33,3 +33,4 @@ def combinations(n, k, min_n=0, accumulator=None):
                 for l in combinations(n, k - 1, x + 1, accumulator + [x + 1])]
 
 result = combinations(len(data), 10)
+

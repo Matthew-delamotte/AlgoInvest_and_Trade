@@ -9,19 +9,7 @@ class Action:
         self.name = name
         self.price = price
         self.benefit = benefit
-
-
-class Myprocess(threading.Thread):
-    def __init__(self):
-        threading.Thread.__init__(self)
-
-    def run(self):
-        i = 0
-        while i < 3:
-            print(threading.current_thread())
-            time.sleep(0.3)
-            i += 1
-
+        
 
 def get_csv():
     with open("data.csv") as csvfile:
@@ -39,12 +27,32 @@ def make_instance(data):
     return action_instance
 
 
+def get_combinations(n, k, min_n=0, accumulator=None):
+    if accumulator is None:
+        accumulator = []
+    if k == 0:
+        return [accumulator]
+    else:
+        return [l for x in range(min_n, n)
+                for l in get_combinations(n, k - 1, x + 1, accumulator + [x + 1])]
+
+def calc_price_combination(combinaison, data):
+    result = []
+    for i in combinaison:
+        result.append(data.get(i).get("price"))
+
+    return sum(result)
+
 def main():
     data = get_csv()
     action_instance = make_instance(data)
-    for i in action_instance:
-        print(i.name)
+    combinations = get_combinations(len(data), 10)
+    
+    print(combinations[51156])
 
+
+    # for i in action_instance:
+    #     print(i.name)
     # th1 = Myprocess()
     # th2 = Myprocess()
 
