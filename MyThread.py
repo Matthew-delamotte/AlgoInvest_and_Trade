@@ -36,9 +36,9 @@ def get_combinations(n, k, min_n=0, accumulator=None):
         return [l for x in range(min_n, n)
                 for l in get_combinations(n, k - 1, x + 1, accumulator + [x + 1])]
 
-def calc_price_combination(combinaison, data):
+def calc_price_combination(combination, data):
     result = []
-    for i in combinaison:
+    for i in combination:
         result.append(data.get(i).get("price"))
 
     return sum(result)
@@ -48,6 +48,7 @@ def main():
     action_instance = make_instance(data)
     combinations = get_combinations(len(data), 10)
     
+    for i in 
     print(combinations[51156])
 
 
