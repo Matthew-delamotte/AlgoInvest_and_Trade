@@ -48,8 +48,7 @@ def main():
     action_instance = make_instance(data)
     combinations = get_combinations(len(data), 10)
     
-    for i in 
-    print(combinations[51156])
+    print(len(combinations))
 
 
     # for i in action_instance:
