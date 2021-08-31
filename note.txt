@@ -31,3 +31,7 @@ def fibo(n):
 
 print (fibo(9))
 
+
+sortir le meilleur benefice
+index du meilleur benefice
+en deux boucle FOR

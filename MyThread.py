@@ -27,15 +27,14 @@ def make_instance(data):
     return action_instance
 
 
-def get_combinations(n, k, min_n=0, accumulator=None):
-    if accumulator is None:
-        accumulator = []
-    if k == 0:
-        return [accumulator]
+def get_combinations(l):
+    if l:
+      result = get_combinations(l[:-1])
+      return result + [c + [l[-1]] for c in result]
     else:
-        return [l for x in range(min_n, n)
-                for l in get_combinations(n, k - 1, x + 1, accumulator + [x + 1])]
-
+      return [[]]
+  
+  
 def calc_price_combination(combination, data):
     result = []
     for i in combination:
@@ -45,9 +44,11 @@ def calc_price_combination(combination, data):
 
 def main():
     data = get_csv()
-    action_instance = make_instance(data)
-    combinations = get_combinations(len(data), 10)
     
+    action_instance = make_instance(data)
+    # print(action_instance)
+    
+    combinations = get_combinations(action_instance)
     print(len(combinations))
 
 
