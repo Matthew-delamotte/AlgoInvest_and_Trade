@@ -51,32 +51,35 @@ def calc_price_combination(combinaison):
     return sum(result)
 
 
-def get_best_result():
-    max_benefit = 0
-    max_combination = 0
-    combination_list = get_combinations()
-    price_list = []
-    benefit_list = []
-    # for combination in get_combinations():
-    #     if (
-    #         calc_benefice_combinaison(combination) > max_benefit
-    #         and calc_price_combination(combination) <= 500
-    #     ):
-    #         max_benefit = calc_benefice_combinaison(combination)
-    #         max_combination = combination
-    for combination in combination_list:
-        price_list = calc_benefice_combinaison(combination)
-        benefit_list = 
-            
-    return max_benefit, max_combination
+def make_combinations_dict(combinations_list):
+    dictionnary = {}
+    for combination in combinations_list:
+        dictionnary[combination] = {"price": calc_price_combination(combination), "benefit": calc_benefice_combinaison(combination)}
+    
+    return dictionnary
+        
+def get_best_result(combination_dict):
+    combination_price = 0
+    combination_benefit = 0
+    best_combination = 0
+    for combination in combination_dict:
+        if (combination_dict.get(combination).get("price") <= 500 and combination_dict.get(combination).get("benefit") > combination_benefit):
+            best_combination = combination
+            combination_benefit = combination_dict.get(combination).get("benefit")
+            combination_price = combination_dict.get(combination).get("price")
+                                 
+    return best_combination, combination_price, combination_benefit
+   
 
 
 def main():
-    max_benefit, max_combination = get_best_result()
-    print(f"Le meilleur investissement est: actions {max_combination}")
-    print(f"Avec un benefice de: {max_benefit}€ après 2 ans")
-    print(f"Pour un cout d'achat total de: {calc_price_combination(max_combination)}€")
-    # print(len(get_combinations()))
+    combinations_list = get_combinations()
+    combinations_dict = make_combinations_dict(combinations_list)
+    best_combination, combination_price, combination_benefit = get_best_result(combinations_dict)
+    print(f"Le meilleur investissement est: actions {best_combination}")
+    print(f"Avec un benefice de: {combination_benefit}€ après 2 ans")
+    print(f"Pour un cout d'achat total de: {combination_price}€")
+
 
 
 if __name__ == "__main__":

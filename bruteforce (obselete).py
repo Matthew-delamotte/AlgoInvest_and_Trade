@@ -27,7 +27,7 @@ action = {
 
 def get_combinations():
     combinations_list = []
-    for L in range(0, len(action) + 1):
+    for L in range(10, len(action) + 1):
         for combination in itertools.combinations(action, L):
             combinations_list.append(combination)
     return combinations_list
