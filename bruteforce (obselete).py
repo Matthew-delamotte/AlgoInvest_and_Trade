@@ -1,5 +1,6 @@
 import itertools
 import time
+import csv
 
 action = {
     "1": {"price": 20, "benefit": 5},
@@ -24,6 +25,12 @@ action = {
     "20": {"price": 114, "benefit": 18},
 }
 
+def get_csv(csv_name):
+    with open(csv_name) as csvfile:
+        reader = csv.reader(csvfile, delimiter=",", quotechar='"')
+        data_read = [row for row in reader]
+        data_read.pop(0)
+        print(data_read)
 
 def get_combinations():
     combinations_list = []
@@ -65,6 +72,7 @@ def get_best_result():
 
 
 def main():
+    get_csv("data.csv")
     max_benefit, max_combination = get_best_result()
     print(f"Le meilleur investissement est: actions {max_combination}")
     print(f"Avec un benefice de: {max_benefit}€ après 2 ans")

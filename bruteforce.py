@@ -43,9 +43,9 @@ def calc_benefice_combinaison(combinaison):
     return sum(result)
 
 
-def calc_price_combination(combinaison):
+def calc_price_combination(combination):
     result = []
-    for i in combinaison:
+    for i in combination:
         result.append(action.get(i).get("price"))
 
     return sum(result)
