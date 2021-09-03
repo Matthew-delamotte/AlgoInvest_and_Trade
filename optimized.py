@@ -33,7 +33,7 @@ def get_combinations(data):
 def calc_benefit_combination(combination):
     result = []
     for action in combination:
-        result.append((int(action.benefit) * (1 + int(action.price))) / 100)
+        result.append((int(action.price) * (1 + int(action.benefit))) / 100)
 
     return sum(result)
 
@@ -46,10 +46,10 @@ def calc_price_combination(combination):
     return sum(result)
 
 
-def get_best_result():
+def get_best_result(action_instance):
     max_benefit = 0
     max_combination = 0
-    for combination in get_combinations():
+    for combination in get_combinations(action_instance):
         if (
             calc_benefit_combination(combination) > max_benefit
             and calc_price_combination(combination) <= 500
@@ -62,14 +62,10 @@ def get_best_result():
 def main():
     data = get_csv("data.csv")
     action_instance = make_instance(data)
-    combinations = get_combinations(action_instance)
-    print(calc_price_combination(combinations[1478]))
-    # print(get_combinations())
-    # max_benefit, max_combination = get_best_result()
-    # print(f"Le meilleur investissement est: actions {max_combination}")
-    # print(f"Avec un benefice de: {max_benefit}€ après 2 ans")
-    # print(f"Pour un cout d'achat total de: {calc_price_combination(max_combination)}€")
-    # # print(len(get_combinations()))
+    max_benefit, max_combination = get_best_result(action_instance)
+    print(f"Le meilleur investissement est: actions {max_combination}")
+    print(f"Avec un benefice de: {max_benefit}€ après 2 ans")
+    print(f"Pour un cout d'achat total de: {calc_price_combination(max_combination)}€")
 
 
 if __name__ == "__main__":
