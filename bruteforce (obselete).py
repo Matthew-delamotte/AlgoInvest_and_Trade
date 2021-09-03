@@ -2,58 +2,46 @@ import itertools
 import time
 import csv
 
-action = {
-    "1": {"price": 20, "benefit": 5},
-    "2": {"price": 30, "benefit": 10},
-    "3": {"price": 50, "benefit": 15},
-    "4": {"price": 70, "benefit": 20},
-    "5": {"price": 60, "benefit": 17},
-    "6": {"price": 80, "benefit": 25},
-    "7": {"price": 22, "benefit": 7},
-    "8": {"price": 26, "benefit": 11},
-    "9": {"price": 48, "benefit": 13},
-    "10": {"price": 34, "benefit": 27},
-    "11": {"price": 42, "benefit": 17},
-    "12": {"price": 110, "benefit": 9},
-    "13": {"price": 38, "benefit": 23},
-    "14": {"price": 14, "benefit": 1},
-    "15": {"price": 18, "benefit": 3},
-    "16": {"price": 8, "benefit": 8},
-    "17": {"price": 4, "benefit": 12},
-    "18": {"price": 10, "benefit": 14},
-    "19": {"price": 24, "benefit": 21},
-    "20": {"price": 114, "benefit": 18},
-}
+class Action:
+    def __init__(self, name, price, benefit):
+        self.name = name
+        self.price = price
+        self.benefit = benefit
 
 def get_csv(csv_name):
     with open(csv_name) as csvfile:
         reader = csv.reader(csvfile, delimiter=",", quotechar='"')
         data_read = [row for row in reader]
         data_read.pop(0)
-        print(data_read)
+        return data_read
 
-def get_combinations():
+def make_instance(data):
+    action_instance = []
+    for info in data:
+        action = Action(info[0], info[1], info[2])
+        action_instance.append(action)
+    return action_instance
+
+def get_combinations(data):
     combinations_list = []
-    for L in range(10, len(action) + 1):
-        for combination in itertools.combinations(action, L):
+    for L in range(10, len(data) + 1):
+        for combination in itertools.combinations(data, L):
             combinations_list.append(combination)
     return combinations_list
 
 
-def calc_benefice_combinaison(combinaison):
+def calc_benefit_combination(combination):
     result = []
-    for i in combinaison:
-        result.append(
-            (action.get(i).get("price") * (1 + action.get(i).get("benefit"))) / 100
-        )
+    for action in combination:
+        result.append((int(action.benefit) * (1 + int(action.price))) / 100)
 
     return sum(result)
 
 
-def calc_price_combination(combinaison):
+def calc_price_combination(combination):
     result = []
-    for i in combinaison:
-        result.append(action.get(i).get("price"))
+    for action in combination:
+        result.append(int(action.price))
 
     return sum(result)
 
@@ -63,21 +51,25 @@ def get_best_result():
     max_combination = 0
     for combination in get_combinations():
         if (
-            calc_benefice_combinaison(combination) > max_benefit
+            calc_benefit_combination(combination) > max_benefit
             and calc_price_combination(combination) <= 500
         ):
-            max_benefit = calc_benefice_combinaison(combination)
+            max_benefit = calc_benefit_combination(combination)
             max_combination = combination
     return max_benefit, max_combination
 
 
 def main():
-    get_csv("data.csv")
-    max_benefit, max_combination = get_best_result()
-    print(f"Le meilleur investissement est: actions {max_combination}")
-    print(f"Avec un benefice de: {max_benefit}€ après 2 ans")
-    print(f"Pour un cout d'achat total de: {calc_price_combination(max_combination)}€")
-    # print(len(get_combinations()))
+    data = get_csv("data.csv")
+    action_instance = make_instance(data)
+    combinations = get_combinations(action_instance)
+    print(calc_price_combination(combinations[1478]))
+    # print(get_combinations())
+    # max_benefit, max_combination = get_best_result()
+    # print(f"Le meilleur investissement est: actions {max_combination}")
+    # print(f"Avec un benefice de: {max_benefit}€ après 2 ans")
+    # print(f"Pour un cout d'achat total de: {calc_price_combination(max_combination)}€")
+    # # print(len(get_combinations()))
 
 
 if __name__ == "__main__":
