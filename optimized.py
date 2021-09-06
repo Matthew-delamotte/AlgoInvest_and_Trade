@@ -60,7 +60,7 @@ def get_best_result(action_instance):
 
 
 def main():
-    data = get_csv("data.csv")
+    data = get_csv("dataset1.csv")
     action_instance = make_instance(data)
     max_benefit, max_combination = get_best_result(action_instance)
     print(f"Le meilleur investissement est: actions {max_combination}")
