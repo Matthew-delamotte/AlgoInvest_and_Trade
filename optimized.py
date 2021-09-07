@@ -24,7 +24,7 @@ def make_instance(data):
 
 def get_combinations(data):
     combinations_list = []
-    for L in range(10, len(data) + 1):
+    for L in range(1, len(data) + 1):
         for combination in itertools.combinations(data, L):
             combinations_list.append(combination)
     return combinations_list
@@ -59,16 +59,17 @@ def get_best_result(action_instance):
     return max_benefit, max_combination
 
 
-def main():
-    data = get_csv("dataset1.csv")
-    action_instance = make_instance(data)
-    max_benefit, max_combination = get_best_result(action_instance)
-    print(f"Le meilleur investissement est: actions {max_combination}")
-    print(f"Avec un benefice de: {max_benefit}€ après 2 ans")
-    print(f"Pour un cout d'achat total de: {calc_price_combination(max_combination)}€")
+def main(action_instance):
+    print(len(get_combinations(action_instance)))
+    # max_benefit, max_combination = get_best_result(action_instance)
+    # print(f"Le meilleur investissement est: actions {max_combination}")
+    # print(f"Avec un benefice de: {max_benefit}€ après 2 ans")
+    # print(f"Pour un cout d'achat total de: {calc_price_combination(max_combination)}€")
 
 
 if __name__ == "__main__":
+    data = get_csv("dataset1.csv")
+    action_instance = make_instance(data)
     start_time = time.time()
-    main()
+    main(action_instance)
     print("--- %s seconds ---" % (time.time() - start_time))
