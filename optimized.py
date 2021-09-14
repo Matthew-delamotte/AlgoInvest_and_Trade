@@ -68,7 +68,7 @@ def main(action_instance):
 
 
 if __name__ == "__main__":
-    data = get_csv("dataset1.csv")
+    data = get_csv("data-1.csv")
     action_instance = make_instance(data)
     start_time = time.time()
     main(action_instance)

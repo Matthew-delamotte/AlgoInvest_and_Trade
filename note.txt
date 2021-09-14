@@ -35,3 +35,9 @@ print (fibo(9))
 sortir le meilleur benefice
 index du meilleur benefice
 en deux boucle FOR
+
+
+- trier les actions par ordre de rendement décroissant (rendement = bénéfice/100/cout)
+- ajouter les actions dans le sac tant que le budget restant est plus grand que 0 et que le budget restant peut faire rentrer l'action courante
+- si action courante dépasse , on passe à l'action suivante
+à la fin présenter le résultat. Conséquence : on parcoure la liste d'action une seule fois après l'avoir triée
