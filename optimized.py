@@ -49,7 +49,7 @@ def sorting_data(data):
     return action_list
 
 def main():
-    data = get_csv("dataset2.csv")
+    data = get_csv("./data/dataset1.csv")
     data_clear = scan_file(data)
     action_list= sorting_data(data_clear)
     
@@ -68,3 +68,4 @@ if __name__ == "__main__":
     start_time = time.time()
     main()
     print("--- %s seconds ---" % (time.time() - start_time))
+    print()
