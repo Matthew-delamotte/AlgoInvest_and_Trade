@@ -1,12 +1,7 @@
 import itertools
 import time
 import csv
-
-class Action:
-    def __init__(self, name, price, benefit):
-        self.name = name
-        self.price = price
-        self.benefit = benefit
+from operator import itemgetter
 
 def get_csv(csv_name):
     with open(csv_name) as csvfile:
@@ -15,61 +10,61 @@ def get_csv(csv_name):
         data_read.pop(0)
         return data_read
 
-def make_instance(data):
-    action_instance = []
-    for info in data:
-        action = Action(info[0], info[1], info[2])
-        action_instance.append(action)
-    return action_instance
-
-def get_combinations(data):
-    combinations_list = []
-    for L in range(1, len(data) + 1):
-        for combination in itertools.combinations(data, L):
-            combinations_list.append(combination)
-    return combinations_list
-
+def calc_price_combination(combination):
+    result = []
+    for i in combination:
+        result.append(float(i[1]))
+        
+    return sum(result)
 
 def calc_benefit_combination(combination):
     result = []
-    for action in combination:
-        result.append((int(action.price) * (1 + int(action.benefit))) / 100)
-
+    for i in combination:
+        result.append(
+            (float(i[1]) * (1 + float(i[2]))) / 100
+        )
     return sum(result)
 
+def delete_wrong_data(actions):
+    for action in actions:
+        if float(action[1]) <= 0 or float(action[2]) <= 0:
+            actions.remove(action)
+    
+    return actions
 
-def calc_price_combination(combination):
-    result = []
-    for action in combination:
-        result.append(int(action.price))
+def scan_file(data):
+    for i in range(6):
+        clear_data = delete_wrong_data(data)
+    
+    return clear_data
+    
+def sorting_data(data):
+    action_list = []
+    count_total = 500
+    for i in sorted(data, key=lambda x: float(x[2])/100/float(x[1]), reverse=True): # tri des action par le rendement
+        if float(i[1]) <= count_total:    # si prix de l'action <= au prix total du sac a dos
+            action_list.append(i)
+            count_total = count_total - float(i[1])   # décremente du prix de l'action (budget restant)
+    
+    return action_list
 
-    return sum(result)
-
-
-def get_best_result(action_instance):
-    max_benefit = 0
-    max_combination = 0
-    for combination in get_combinations(action_instance):
-        if (
-            calc_benefit_combination(combination) > max_benefit
-            and calc_price_combination(combination) <= 500
-        ):
-            max_benefit = calc_benefit_combination(combination)
-            max_combination = combination
-    return max_benefit, max_combination
-
-
-def main(action_instance):
-    print(len(get_combinations(action_instance)))
-    # max_benefit, max_combination = get_best_result(action_instance)
-    # print(f"Le meilleur investissement est: actions {max_combination}")
-    # print(f"Avec un benefice de: {max_benefit}€ après 2 ans")
-    # print(f"Pour un cout d'achat total de: {calc_price_combination(max_combination)}€")
+def main():
+    data = get_csv("dataset2.csv")
+    data_clear = scan_file(data)
+    action_list= sorting_data(data_clear)
+    
+    print()
+    print(f"Le meilleur investissement est:")
+    for action in action_list:
+        print(action[0])
+    print()
+    print(f"Avec un benefice de: {calc_benefit_combination(action_list)}€ après 2 ans")
+    print(f"Pour un cout d'achat total de: {calc_price_combination(action_list)}€")
+    
+    
 
 
 if __name__ == "__main__":
-    data = get_csv("data-1.csv")
-    action_instance = make_instance(data)
     start_time = time.time()
-    main(action_instance)
+    main()
     print("--- %s seconds ---" % (time.time() - start_time))
